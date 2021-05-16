@@ -37,10 +37,23 @@ function App() {
     let data = todos.map((item, index) => { return { title: item.title, id: index } })
     data = data.concat({ title: childData, id: data.length })
     setTodos(data)
+    localStorage.setItem('todos', JSON.stringify(data))
   }
   const deleteCallbackFunction = (id) => {
     let data = todos.filter((item) => id !== item.id)
     setTodos(data)
+    localStorage.setItem('todos', JSON.stringify(data))
+  }
+
+  const searchHandler = (event) => {
+    if (event.target.value.length > 0) {
+      const searchData = todos.filter((item) => {
+        return item.title.toLowerCase().includes(event.target.value.toLowerCase())
+      })
+      setTodos(searchData)
+    } else {
+      setTodos(JSON.parse(localStorage.getItem('todos')))
+    }
   }
 
   return (
@@ -48,7 +61,7 @@ function App() {
       <div className="flex-between">
         <h1>My Todos</h1>
         <div>
-          <input type="text" id="todo" placeholder="Search Todo title" />
+          <input type="text" id="todoSearch" onChange={searchHandler} placeholder="Search Todo title" />
         </div>
         <button className="btn" onClick={openTodoHandler}>Add Todo</button>
       </div>
