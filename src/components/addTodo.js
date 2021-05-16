@@ -16,12 +16,16 @@ function AddTodo(props) {
             setIsTitleAdded(true)
     }
 
+    const style = {
+        width : '100%',
+    }
+
     return (
         <div className="modal">
             <h1>New Todo</h1>
             <div>
                 <form>
-                    <input type="text" id="title" placeholder="Enter Todo title" ref={titleRef} onChange={handleTitleChange} />
+                    <input style={style} type="text" id="title" placeholder="Enter Todo title" ref={titleRef} onChange={handleTitleChange} />
                 </form>
             </div>
             <button className="btn btn--alt" onClick={props.onCancel}>Cancel</button>
